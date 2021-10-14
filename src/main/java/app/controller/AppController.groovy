@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping
 public class AppController {
 
     @GetMapping("/")
-    String home() {
+    def home() {
         log.info "Hi Krishna"
         "index"
     }

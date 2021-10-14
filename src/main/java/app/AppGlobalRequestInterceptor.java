@@ -22,7 +22,8 @@ public class AppGlobalRequestInterceptor extends HandlerInterceptorAdapter {
         HttpSession session = request.getSession();
         if (RequestURL.getStatelessURL_List().contains(request.getRequestURI()) ||
                 request.getRequestURI().startsWith("/webjars") ||
-                request.getRequestURI().startsWith("/static/js/") || request.getRequestURI().startsWith("/css/")) {
+                request.getRequestURI().startsWith("/static/js/") ||
+                request.getRequestURI().startsWith("/css/")) {
 
             return super.preHandle(request, response, handler);
 
