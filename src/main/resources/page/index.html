@@ -51,44 +51,27 @@
     <div id="websocketMsgId" class="alert alert-success" role="alert" style="width: 60%; display: none;"></div>
 </div>
 
-<div class="container-fluid h-100" style="padding-top: 1em;">
-    <div class="card-body">
-        <div class="row h-100">
-            <div class="col-5" style="text-align: right">
-                <label for="inputPassword6" class="col-form-label">Password</label>
-            </div>
-            <div class="col-2">
-                <input type="password" id="inputPassword6" class="form-control">
-            </div>
-            <div class="col-5" style="text-align: left">
-                <button type="button" class="btn btn-success">Submit</button>
+
+<div style="margin-top: 10em;" class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-4 text-end">
+            <button type="button" class="btn btn-success btn-lg">Start a Session</button>
+        </div>
+        <div class="col-1">
+            <div class="d-flex justify-content-center" style="height: 200px;">
+                <div class="vr"></div>
             </div>
         </div>
-    </div>
-<div>
-    <nav class="navbar fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand navbar-brand-extra" href="/"><span th:text="${appProperty.appName}"/></a>
-    </nav>
-
-    <div style="margin-top: 10em;" class="container">
-
-        <div class="row justify-content-center">
-            <div class="col-4 text-end">
-                <button type="button" class="btn btn-success btn-lg">Start a Session</button>
-            </div>
-            <div class="col-1">
-                <div class="d-flex justify-content-center" style="height: 200px;">
-                    <div class="vr"></div>
-                </div>
-            </div>
-            <div class="col-4">
-                <button type="button" class="btn btn-success btn-lg">Join a Session</button>
-            </div>
+        <div class="col-4">
+            <button type="button" class="btn btn-success btn-lg">Join a Session</button>
         </div>
-
     </div>
+
+</div>
 
 
 </div>
 
+</div>
 </body>
