@@ -14,7 +14,7 @@
 
     <!-- Scripting -->
     <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/webjars/d3js/5.16.0/d3.min.js"></script>
     <script type="text/javascript" src="/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
     <script type="text/javascript" src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
@@ -27,6 +27,11 @@
 
 <nav class="navbar fixed-top navbar-dark bg-dark">
     <a class="navbar-brand navbar-brand-extra" href="/"><span th:text="${appProperty.appName}"/></a>
+
+    <button type="button" class="btn btn-primary">
+        Notifications <span class="badge bg-secondary">4</span>
+    </button>
+
 </nav>
 
 <div class="justify-content-center align-items-center"
@@ -52,9 +57,9 @@
 </div>
 
 
-<div style="margin-top: 10em;" class="container">
+<div style="margin-top: 5em;" class="container">
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" style="max-height: 3em;">
         <div class="col-4 text-end">
             <button type="button" class="btn btn-success btn-lg">Start a Session</button>
         </div>
@@ -67,6 +72,16 @@
             <button type="button" class="btn btn-success btn-lg">Join a Session</button>
         </div>
     </div>
+
+
+    <div class="row justify-content-center" style="max-height: 3em;">
+        <div class="col-12 text-end">
+            <form>
+
+            </form>
+        </div>
+    </div>
+
 
 </div>
 
