@@ -1,17 +1,19 @@
 package app.controller
 
-import groovy.util.logging.Slf4j
+import org.hibernate.Session
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 
-@Slf4j
 @Controller
-public class AppController {
+class AppController {
+
+    def log = LoggerFactory.getLogger AppController
 
     @GetMapping("/")
-    def home() {
-        log.info "Hi Krishna"
-        "index"
+    def home(Session session) {
+        log.info "Landing Page"
+        "Index"
     }
 
 }

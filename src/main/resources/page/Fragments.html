@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head th:fragment="header">
+    <!-- Meta data -->
+    <title th:text="${appProperty.appName}"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Styling -->
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet/less" type="text/css" href="/css/main.less">
+
+    <!-- Scripting -->
+    <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/d3js/5.16.0/d3.min.js"></script>
+    <script type="text/javascript" src="/webjars/sockjs-client/1.0.2/sockjs.min.js"></script>
+    <script type="text/javascript" src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+    <script type="text/javascript" src="/webjars/less/3.8.1/less.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/function.js}"></script>
+
+    <script th:inline="javascript">
+        var sessionCommunicationTopicPrefix=[[${appProperty.sessionCommunicationTopicPrefix}]]
+    </script>
+
+</head>
+
+<nav th:fragment="nav" class="navbar fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand navbar-brand-extra" href="/"><span th:text="${appProperty.appName}"/></a>
+</nav>
+
+<div th:fragment="message" class="d-flex justify-content-around text-center" style="margin-top:5em; display:block; width:100%; height:3em;"/>

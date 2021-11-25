@@ -12,13 +12,19 @@ class AppProperty implements Serializable {
     private transient Gson gson
 
     @Value('${app.name:Not Available}')
-    String appName
+    def appName
 
     @Value('${app.admin.user:system}')
-    String appAdminUser
+    def appAdminUser
 
     @Value('${app.admin.password:system}')
-    transient String appAdminPassword
+    transient def appAdminPassword
+
+    @Value('${session.communication.topic.prefix}')
+    def sessionCommunicationTopicPrefix
+
+    @Value('${user.communication.topic.prefix}')
+    def userCommunicationTopicPrefix
 
     @Override
     String toString() {

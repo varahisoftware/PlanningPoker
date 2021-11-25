@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<header th:insert="Fragments.html :: header"></header>
+<body>
+
+<nav th:insert="Fragments.html :: nav"></nav>
+<div th:insert="Fragments.html :: message"></div>
+
+<div class="container-fluid">
+
+    <div class="row ">
+        <div class="col-12 d-flex justify-content-center">
+
+            <form id="ppsessionId" action="#" method="post">
+
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <input type="text" placeholder="Session Id" name="session" id="sessionId" class="form-control" size="40">
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" placeholder="Name" name="jira" id="nameId" class="form-control" size="40">
+                    </div>
+                    <div class="col-auto">
+                        <input id="ppsessionSubmitId" type="submit" class="form-control btn btn-primary">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+    $('#ppsessionId').submit(function(event){
+        event.preventDefault();
+
+        if(!$('#sessionId').val()){
+            $('#sessionId').addClass("border-danger");
+            return false;
+        }else{
+            $('#sessionId').removeClass("border-danger");
+            // $('#sessionId').addClass("border-success");
+        }
+
+        if(!$('#nameId').val()){
+            $('#nameId').addClass("border-danger");
+            return false;
+        }else{
+            $('#nameId').removeClass("border-danger");
+            // $('#nameId').addClass("border-success");
+        }
+
+        connectToPlanningPokerWS($('#sessionId').val());
+
+        $('#sessionId').addClass("bg-secondary text-white custom-badge-radius");
+        $('#nameId').addClass("bg-secondary text-white custom-badge-radius");
+
+    });
+
+</script>
+
+</body>

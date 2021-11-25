@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<header th:insert="Fragments.html :: header"></header>
+<body>
+
+<nav th:insert="Fragments.html :: nav"></nav>
+<div th:insert="Fragments.html :: message"></div>
+
+<div class="container-fluid ">
+
+
+    <div class="row">
+        <div class="col-6 text-end"><a class="btn btn-success" href="StartSession"> Start Session </a></div>
+        <div class="col-6 text-start"><a class="btn btn-success" href="JoinSession"> Join Session </a></div>
+    </div>
+
+</div>
+
+</body>

@@ -1,22 +1,15 @@
-function postAction(url){
-    var jqxhr = $.post( url, function() {
-      alert( "success" );
-    })
-      .done(function() {
-        alert( "second success" );
-      })
-      .fail(function() {
-        alert( "error" );
-      })
-      .always(function() {
-        alert( "finished" );
-      });
-
-      jqxhr.always(function(){
-        alert("Another finished");
-      })
-
+function displayGlobalMSG(msg){
+    $("#websocketMsgId").text(msg).show().delay(5000).fadeOut();
 }
 
-function getAction(){
+function connectToPlanningPokerWS(sessionId){
+    var socket = new SockJS('/ws');
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        // console.log('Connected: ' + frame);
+        stompClient.subscribe(sessionCommunicationTopicPrefix+sessionId, function (frame) {
+            const msg = frame.body;
+            console.log("Received Message: " + msg);
+        });
+    });
 }

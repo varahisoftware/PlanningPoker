@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<header th:insert="Fragments.html :: header"></header>
+<body>
+
+<nav th:insert="Fragments.html :: nav"></nav>
+<div th:insert="Fragments.html :: message"></div>
+
+<div class="container-fluid ">
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <span class="bg-secondary text-white custom-badge-radius"> Code:
+                <span class="text-warning" th:text="${planningPokerUUID}"></span></span>
+        </div>
+    </div>
+
+    <div class="row" style="padding:5em 5em;">
+        <div class="col-6 d-flex justify-content-start">
+
+            <form id="submitJIRAId" action="/submitJIRA" method="post">
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="jiraId" class="col-form-label">JIRA</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" name="jira" id="jiraId" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <input type="hidden" name="planningPokerUUID" id="planningPokerUUIDId" th:value="${planningPokerUUID}">
+                        <input id="submitButton" type="submit" class="form-control btn btn-primary">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="col-6">
+
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col-4 text-end">
+                    <label for="jiraId" class="col-form-label">Krishna</label>
+                </div>
+                <div class="col-2">
+                    <input type="text" name="jira" id="jiraId" class="form-control">
+                </div>
+                <div class="col-6">
+                    <input type="text" name="jira" id="jiraId" class="form-control">
+                </div>
+            </div>
+
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col-4 text-end">
+                    <label for="jiraId" class="col-form-label">Jitendra</label>
+                </div>
+                <div class="col-2">
+                    <input type="text" name="jira" id="jiraId" class="form-control">
+                </div>
+                <div class="col-6">
+                    <input type="text" name="jira" id="jiraId" class="form-control">
+                </div>
+            </div>
+<!--
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col-4 text-end">
+                    <label for="jiraId" class="col-form-label">Sanjiv</label>
+                </div>
+                <div class="col-2">
+                    <input type="text" name="jira" id="jiraId" class="form-control">
+                </div>
+                <div class="col-6">
+                    <input type="text" name="jira" id="jiraId" class="form-control">
+                </div>
+            </div>
+
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col-4 text-end">
+                    <label for="jiraId" class="col-form-label">Mike</label>
+                </div>
+                <div class="col-2">
+                    <input type="text" name="jira" id="jiraId" class="form-control">
+                </div>
+                <div class="col-6">
+                    <input type="text" name="jira" id="jiraId" class="form-control">
+                </div>
+            </div>
+
+            <div class="row g-3 align-items-center">
+                <div class="col-12 text-center" style="padding: 2em;">
+                    <button class="btn btn-primary"> Reveal </button>
+                </div>
+            </div>
+-->
+        </div>
+
+    </div>
+
+</div>
+
+<script language="JavaScript">
+    $('#submitJIRAId').submit(function(event){
+        event.preventDefault();
+        $.post({
+            url: '/submitJIRA',
+            data: $('#submitJIRAId').serialize(),
+            success: function (res) {
+                // alert("Successful");
+            }
+        })
+       });
+</script>
+
+<!--
+<script th:inline="javascript">
+$( document ).ready(function() {
+    var socket = new SockJS('/ws');
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe(sessionCommunicationTopicPrefix+[[${planningPokerUUID}]], function (frame) {
+            const msg = frame.body;
+            console.log("New Message: " + msg);
+        });
+    });
+});
+</script>
+-->
+
+</body>
