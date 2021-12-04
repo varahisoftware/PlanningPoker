@@ -23,6 +23,13 @@ class AppProperty implements Serializable {
     @Value('${session.communication.topic.prefix}')
     def sessionCommunicationTopicPrefix
 
+    @Value('${session.communication.to.participant}')
+    def sessionCommunicationToParticipant
+
+    @Value('${session.communication.to.scrum}')
+    def sessionCommunicationToScrum
+
+
     @Value('${user.communication.topic.prefix}')
     def userCommunicationTopicPrefix
 

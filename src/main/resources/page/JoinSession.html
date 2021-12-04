@@ -9,14 +9,13 @@
 
 <div class="container-fluid">
 
-    <div class="row ">
-        <div class="col-12 d-flex justify-content-center">
-
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center mb-3">
             <form id="ppsessionId" action="#" method="post">
-
                 <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                        <input type="text" placeholder="Session Id" name="session" id="sessionId" class="form-control" size="40">
+                        <input type="text" placeholder="Session Id" name="session" id="sessionId" class="form-control"
+                               size="40">
                     </div>
                     <div class="col-auto">
                         <input type="text" placeholder="Name" name="jira" id="nameId" class="form-control" size="40">
@@ -26,7 +25,46 @@
                     </div>
                 </div>
             </form>
-
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div id="estimateFormId" style="margin-top: 5em; display:none;">
+                <form id="submitEstimateFormId" action="#">
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-2 d-flex justify-content-end">
+                            <label for="jiraId" class="col-form-label">User Story</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" id="jiraId" name="jira" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-2 d-flex justify-content-end">
+                            <label for="estimateId" class="col-form-label">Estimate</label>
+                        </div>
+                        <div class="col-4">
+                            <select id="estimateId" name="estimate" class="form-select">
+                                <option th:each="estimate : ${T(app.definition.Estimate).values()}"
+                                        th:value="${estimate}" th:text="${estimate.getValue()}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-2 d-flex justify-content-end">
+                            <label for="commentId" class="col-form-label">Comment</label>
+                        </div>
+                        <div class="col-4">
+                            <textarea id="commentId" name="comment" class="form-control" rows="2"> </textarea>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-2 d-flex justify-content-end">
+                            <input type="submit" class="btn btn-primary"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -41,7 +79,6 @@
             return false;
         }else{
             $('#sessionId').removeClass("border-danger");
-            // $('#sessionId').addClass("border-success");
         }
 
         if(!$('#nameId').val()){
@@ -49,15 +86,40 @@
             return false;
         }else{
             $('#nameId').removeClass("border-danger");
-            // $('#nameId').addClass("border-success");
         }
 
         connectToPlanningPokerWS($('#sessionId').val());
 
-        $('#sessionId').addClass("bg-secondary text-white custom-badge-radius");
-        $('#nameId').addClass("bg-secondary text-white custom-badge-radius");
+        $('#sessionId').addClass("btn bg-success text-white custom-badge-radius text-center");
+        $('#nameId').addClass("btn bg-success text-white custom-badge-radius text-center");
+        $('#ppsessionSubmitId').hide();
+        $('#estimateFormId').show();
 
     });
+
+function connectToPlanningPokerWS(sessionId){
+    var socket = new SockJS('/ws');
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        // console.log('Connected: ' + frame);
+        stompClient.subscribe(sessionCommunicationTopicPrefix+sessionId+sessionCommunicationToParticipant, function (frame) {
+            const msg = frame.body;
+            if(isJson(msg)){
+                let message = JSON.parse(msg);
+                if("SCRUM_MASTER" == message.from && "PARTICIPANT" == message.to){
+                    if("JIRA" == message.type){
+                        $('#jiraId').val(message.payload);
+                    }
+                }
+            }
+        });
+    });
+}
+
+$('#estimateFormId').submit(function(event){
+    event.preventDefault();
+    displayGlobalMSG('Submitted estimate: ' + $('#estimateId option:selected').text() + ' for JIRA: ' + $("#jiraId").val());
+});
 
 </script>
 

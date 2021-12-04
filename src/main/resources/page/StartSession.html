@@ -11,21 +11,21 @@
 
     <div class="row">
         <div class="col-12 text-center">
-            <span class="bg-secondary text-white custom-badge-radius"> Code:
+            <span class="bg-secondary text-white custom-badge-radius"> Session Id:
                 <span class="text-warning" th:text="${planningPokerUUID}"></span></span>
         </div>
     </div>
 
     <div class="row" style="padding:5em 5em;">
-        <div class="col-6 d-flex justify-content-start">
+        <div class="col-4 d-flex justify-content-start">
 
             <form id="submitJIRAId" action="/submitJIRA" method="post">
                 <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                        <label for="jiraId" class="col-form-label">JIRA</label>
+                        <label for="jiraId" class="col-form-label">User Story</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" name="jira" id="jiraId" class="form-control">
+                        <input type="text" name="jira" id="jiraId" class="form-control" placeholder="Free text">
                     </div>
                     <div class="col-auto">
                         <input type="hidden" name="planningPokerUUID" id="planningPokerUUIDId" th:value="${planningPokerUUID}">
@@ -36,62 +36,12 @@
 
         </div>
 
-        <div class="col-6">
+        <div class="col-8">
 
-            <div class="row g-3 align-items-center mb-1">
-                <div class="col-4 text-end">
-                    <label for="jiraId" class="col-form-label">Krishna</label>
-                </div>
-                <div class="col-2">
-                    <input type="text" name="jira" id="jiraId" class="form-control">
-                </div>
-                <div class="col-6">
-                    <input type="text" name="jira" id="jiraId" class="form-control">
-                </div>
+            <div id="estimateGridId" class="d-flex flex-wrap justify-content-evenly">
+
             </div>
 
-            <div class="row g-3 align-items-center mb-1">
-                <div class="col-4 text-end">
-                    <label for="jiraId" class="col-form-label">Jitendra</label>
-                </div>
-                <div class="col-2">
-                    <input type="text" name="jira" id="jiraId" class="form-control">
-                </div>
-                <div class="col-6">
-                    <input type="text" name="jira" id="jiraId" class="form-control">
-                </div>
-            </div>
-<!--
-            <div class="row g-3 align-items-center mb-1">
-                <div class="col-4 text-end">
-                    <label for="jiraId" class="col-form-label">Sanjiv</label>
-                </div>
-                <div class="col-2">
-                    <input type="text" name="jira" id="jiraId" class="form-control">
-                </div>
-                <div class="col-6">
-                    <input type="text" name="jira" id="jiraId" class="form-control">
-                </div>
-            </div>
-
-            <div class="row g-3 align-items-center mb-1">
-                <div class="col-4 text-end">
-                    <label for="jiraId" class="col-form-label">Mike</label>
-                </div>
-                <div class="col-2">
-                    <input type="text" name="jira" id="jiraId" class="form-control">
-                </div>
-                <div class="col-6">
-                    <input type="text" name="jira" id="jiraId" class="form-control">
-                </div>
-            </div>
-
-            <div class="row g-3 align-items-center">
-                <div class="col-12 text-center" style="padding: 2em;">
-                    <button class="btn btn-primary"> Reveal </button>
-                </div>
-            </div>
--->
         </div>
 
     </div>
@@ -99,32 +49,20 @@
 </div>
 
 <script language="JavaScript">
-    $('#submitJIRAId').submit(function(event){
-        event.preventDefault();
-        $.post({
-            url: '/submitJIRA',
-            data: $('#submitJIRAId').serialize(),
-            success: function (res) {
-                // alert("Successful");
-            }
-        })
-       });
-</script>
-
-<!--
-<script th:inline="javascript">
-$( document ).ready(function() {
-    var socket = new SockJS('/ws');
-    var stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
-        stompClient.subscribe(sessionCommunicationTopicPrefix+[[${planningPokerUUID}]], function (frame) {
-            const msg = frame.body;
-            console.log("New Message: " + msg);
-        });
-    });
+$('#submitJIRAId').submit(function(event){
+    event.preventDefault();
+    $.post({
+        url: '/submitJIRA',
+        data: $('#submitJIRAId').serialize(),
+        success: function (res) {
+            displayGlobalMSG('Submitted JIRA for estimate: ' + $("#jiraId").val());
+            $('#estimateGridId').append("<div class=\"card w-25 estimate-card-custom\"><div class=\"card-body\"><h5 class=\"card-title\">Krishna</h5><span class=\"estimate-radius\">Need More Info</span><p class=\"card-text\">With supporting text below as a natural lead-in to additional content.</p></div></div>");
+        }
+    })
 });
+
+
+
 </script>
--->
 
 </body>
