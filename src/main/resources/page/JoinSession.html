@@ -55,9 +55,9 @@
                             <label for="commentId" class="col-form-label">Comment</label>
                         </div>
                         <div class="col-4">
-                            <textarea id="commentId" name="comment" class="form-control" rows="2"> </textarea>
+                            <textarea id="commentId" name="comment" class="form-control" rows="3" placeholder="Add any additional info for JIRA"></textarea>
                         </div>
-                    </div>
+                      </div>
                     <div class="row justify-content-center mb-3">
                         <div class="col-2 d-flex justify-content-end">
                             <input type="submit" class="btn btn-primary"/>
@@ -97,24 +97,31 @@
 
     });
 
+var stompClient = null;
+
 function connectToPlanningPokerWS(sessionId){
     var socket = new SockJS('/ws');
-    var stompClient = Stomp.over(socket);
+    stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         // console.log('Connected: ' + frame);
-        stompClient.subscribe(sessionCommunicationTopicPrefix+sessionId+sessionCommunicationToParticipant, function (frame) {
+        displayGlobalMSG('Connected to Planning Poker session: ' + sessionId);
+        stompClient.subscribe(sessionCommunicationTopicPrefix + sessionId + sessionCommunicationToParticipant, function (frame) {
             const msg = frame.body;
             if(isJson(msg)){
                 let message = JSON.parse(msg);
                 if("SCRUM_MASTER" == message.from && "PARTICIPANT" == message.to){
                     if("JIRA" == message.type){
                         $('#jiraId').val(message.payload);
+                        displayGlobalMSG('Scrum Master requested estimate for JIRA: ' + message.payload);
+                        stompClient.send(sessionCommunicationTopicPrefix + sessionId + sessionCommunicationToScrum, {},
+                        JSON.stringify({"from":"PARTICIPANT","to":"SCRUM_MASTER","sessionId":sessionId,"type":"JIRA","payload":"hi-krishna"}));
                     }
                 }
             }
         });
     });
 }
+
 
 $('#estimateFormId').submit(function(event){
     event.preventDefault();
